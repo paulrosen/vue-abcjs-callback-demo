@@ -15,9 +15,11 @@ const engraverParams = {
 };
 abcjs.renderAbc("paper", this.tune, {},
   engraverParams, {});</pre>
+		<pre>&lt;div id="paper"&gt;</pre>
 		<div class="output">
 			Output
 			<div class="tune-number">Tune Number: <i>{{tuneNumber}}</i></div>
+			<div class="classes">Classes: <i>{{classes}}</i></div>
 			<div class="abcelem">Struct returned from callback:<br><i>{{elem}}</i></div>
 		</div>
 		<p class="instructions">Click around on the various parts of the sheet music and see what the resultant output is.</p>
@@ -42,6 +44,7 @@ abcjs.renderAbc("paper", this.tune, {},
 			return {
 				elem: {},
 				tuneNumber: "",
+				classes: [],
 				tune: `X:1
 T: Cooley's
 M: 4/4
@@ -56,12 +59,13 @@ D2|:"Em"EB{c}BA B2 EB|~B2 AB dBAG|"D"FDAD BDAD|FDAD dAFD|
 			}
 		},
 		methods: {
-			highlight(abcElem, tuneNumber) {
+			highlight(abcElem, tuneNumber, classes) {
 				// remove the abselem member because it is circular.
 				const elem = Object.assign({}, abcElem);
 				delete elem.abselem;
 				this.elem = elem;
 				this.tuneNumber = tuneNumber;
+				this.classes = classes
 			},
 		}
 	}

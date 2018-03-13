@@ -8,13 +8,10 @@
 		<p>The only necessary code to make this work is:</p>
 		<pre>import abcjs from "abcjs";
 
-const engraverParams = {
-  listener: {
-    highlight: this.highlight,
-  }
-};
-abcjs.renderAbc("paper", this.tune, {},
-  engraverParams, {});</pre>
+abcjs.renderAbc("paper", this.tune, {
+    add_classes: true,
+    clickListener: this.listener
+});</pre>
 		<pre>&lt;div id="paper"&gt;</pre>
 		<div class="output">
 			Output
@@ -32,12 +29,7 @@ abcjs.renderAbc("paper", this.tune, {},
 
 	export default {
 		mounted: function () {
-			const engraverParams = {
-				listener: {
-					highlight: this.highlight,
-				}
-			};
-			abcjs.renderAbc("paper", this.tune, {}, engraverParams, {});
+			abcjs.renderAbc("paper", this.tune, { add_classes: true, clickListener: this.listener });
 		},
 		name: 'hello',
 		data () {
@@ -59,7 +51,7 @@ D2|:"Em"EB{c}BA B2 EB|~B2 AB dBAG|"D"FDAD BDAD|FDAD dAFD|
 			}
 		},
 		methods: {
-			highlight(abcElem, tuneNumber, classes) {
+			listener(abcElem, tuneNumber, classes) {
 				// remove the abselem member because it is circular.
 				const elem = Object.assign({}, abcElem);
 				delete elem.abselem;
